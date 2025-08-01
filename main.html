@@ -1,264 +1,386 @@
-// Quiz data
-const quizzes = [
-    // John Paulson (6 quizzes)
-    {
-        question: "What is John Paulson's primary trading strategy?",
-        options: ["Day trading", "Contrarian betting", "Scalping", "Buy and hold"],
-        answer: "Contrarian betting",
-        explanation: "Paulson bets against market trends, like shorting subprime mortgages in 2008, profiting when others lose."[](https://fbs.com/fbs-academy/traders-blog/top-10-greatest-traders-of-all-time)
-    },
-    {
-        question: "How does Paulson manage risk in his trades?",
-        options: ["High leverage", "Diversifying strategies", "All-in bets", "Ignoring losses"],
-        answer: "Diversifying strategies",
-        explanation: "Paulson combines arbitrage and speculative bets, dividing funds to limit exposure."[](https://fbs.com/fbs-academy/traders-blog/top-10-greatest-traders-of-all-time)
-    },
-    {
-        question: "What analysis does Paulson rely on?",
-        options: ["Technical", "Quantitative", "Macroeconomic", "Sentiment"],
-        answer: "Macroeconomic",
-        explanation: "Paulson studies global economic trends to spot undervalued or overvalued assets."[](https://fbs.com/fbs-academy/traders-blog/top-10-greatest-traders-of-all-time)
-    },
-    {
-        question: "What was Paulson's most famous trade?",
-        options: ["Gold in 2010", "Subprime short in 2008", "Tech stocks in 2015", "Oil in 2020"],
-        answer: "Subprime short in 2008",
-        explanation: "Paulson earned $4 billion by betting against the housing market using credit default swaps."[](https://fbs.com/fbs-academy/traders-blog/top-10-greatest-traders-of-all-time)
-    },
-    {
-        question: "What pitfall should you avoid when following Paulson's strategy?",
-        options: ["Over-leveraging", "Diversifying too much", "Following trends", "Using stop-loss"],
-        answer: "Over-leveraging",
-        explanation: "Contrarian bets can fail if leveraged too heavily, wiping out capital."
-    },
-    {
-        question: "What’s a practical tip from Paulson for retail traders?",
-        options: ["Trade daily", "Study economic trends", "Follow news blindly", "Use high leverage"],
-        answer: "Study economic trends",
-        explanation: "Like Paulson, analyze macro conditions to make informed trades."
-    },
-
-    // David Tepper (6 quizzes)
-    {
-        question: "What is David Tepper’s key trading focus?",
-        options: ["Tech stocks", "Distressed debt", "Forex", "Crypto"],
-        answer: "Distressed debt",
-        explanation: "Tepper buys bonds or stocks of troubled companies, expecting recovery."[](https://www.investopedia.com/worlds-most-famous-traders-11678399)
-    },
-    {
-        question: "How does Tepper approach risk?",
-        options: ["Avoids leverage", "Uses high leverage", "Trades conservatively", "No stop-loss"],
-        answer: "Uses high leverage",
-        explanation: "Tepper uses borrowed money to amplify gains, but this increases risk."[](https://www.investopedia.com/worlds-most-famous-traders-11678399)
-    },
-    {
-        question: "What analysis does Tepper rely on?",
-        options: ["Technical", "Fundamental", "Quantitative", "Sentiment"],
-        answer: "Fundamental",
-        explanation: "Tepper assesses company financials and economic conditions."[](https://www.investopedia.com/worlds-most-famous-traders-11678399)
-    },
-    {
-        question: "What was Tepper’s notable trade?",
-        options: ["Banks post-2008", "Gold in 2010", "Tech in 2020", "Oil in 2015"],
-        answer: "Banks post-2008",
-        explanation: "Tepper profited billions by buying bank stocks during the 2009 recovery."[](https://www.investopedia.com/worlds-most-famous-traders-11678399)
-    },
-    {
-        question: "What pitfall should you avoid with Tepper’s strategy?",
-        options: ["Buying too early", "Ignoring fundamentals", "Low leverage", "Diversifying"],
-        answer: "Buying too early",
-        explanation: "Distressed assets may take time to recover, requiring patience."
-    },
-    {
-        question: "What’s a practical tip from Tepper?",
-        options: ["Trade fast", "Buy during pessimism", "Follow trends", "Avoid stocks"],
-        answer: "Buy during pessimism",
-        explanation: "Tepper buys undervalued assets when markets are fearful."
-    },
-
-    // Steven Cohen (6 quizzes)
-    {
-        question: "What is Steven Cohen’s trading style?",
-        options: ["Long-term investing", "High-risk, high-reward", "Passive indexing", "Arbitrage"],
-        answer: "High-risk, high-reward",
-        explanation: "Cohen executes aggressive trades for big gains."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "How does Cohen manage risk?",
-        options: ["Solo trading", "Team analysis", "No stop-loss", "Low leverage"],
-        answer: "Team analysis",
-        explanation: "Cohen relies on a team to reduce individual bias and errors."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What analysis does Cohen use?",
-        options: ["Fundamental", "Technical", "Macro", "Quantitative"],
-        answer: "Technical",
-        explanation: "Cohen uses price patterns and indicators for quick trades."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What was Cohen’s notable achievement?",
-        options: ["25% annual returns", "Subprime short", "Gold trade", "Forex bet"],
-        answer: "25% annual returns",
-        explanation: "Cohen’s SAC Capital delivered 25% returns for nearly 20 years."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What pitfall should you avoid with Cohen’s strategy?",
-        options: ["Slow trading", "Over-trading", "Long-term holding", "Diversifying"],
-        answer: "Over-trading",
-        explanation: "Frequent trading can lead to high costs and emotional burnout."
-    },
-    {
-        question: "What’s a practical tip from Cohen?",
-        options: ["Trade alone", "Use technical indicators", "Avoid stocks", "Hold forever"],
-        answer: "Use technical indicators",
-        explanation: "Like Cohen, use charts to time entries and exits."
-    },
-
-    // Jim Simons (6 quizzes)
-    {
-        question: "What is Jim Simons’ trading approach?",
-        options: ["Manual trading", "Quantitative trading", "Swing trading", "Value investing"],
-        answer: "Quantitative trading",
-        explanation: "Simons uses algorithms to find market patterns."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "How does Simons manage risk?",
-        options: ["High leverage", "Small positions", "No stop-loss", "Emotional trading"],
-        answer: "Small positions",
-        explanation: "Simons diversifies with many small trades to limit losses."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What analysis does Simons rely on?",
-        options: ["Fundamental", "Technical", "Quantitative", "Macro"],
-        answer: "Quantitative",
-        explanation: "Simons uses mathematical models and data analysis."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What was Simons’ notable achievement?",
-        options: ["66% annual returns", "Subprime short", "Forex trade", "Bank stocks"],
-        answer: "66% annual returns",
-        explanation: "Simons’ Medallion Fund averaged 66% returns before fees."[](https://www.strike.money/stock-market/best-traders-in-history)
-    },
-    {
-        question: "What pitfall should you avoid with Simons’ strategy?",
-        options: ["Over-reliance on data", "Manual trading", "High leverage", "Long-term holding"],
-        answer: "Over-reliance on data",
-        explanation: "Algorithms can fail in unpredictable markets."
-    },
-    {
-        question: "What’s a practical tip from Simons?",
-        answer: "Test strategies with data",
-        explanation: "Like Simons, backtest your trading ideas before risking money."
-    }
-];
-
-// State variables
-let currentQuiz = 0;
-let score = 0;
-let selectedAnswer = null;
-
-// DOM elements
-const homePage = document.getElementById('home-page');
-const quizPage = document.getElementById('quiz-page');
-const resultsPage = document.getElementById('results-page');
-const questionEl = document.getElementById('question');
-const optionsEl = document.getElementById('options');
-const submitButton = document.getElementById('submit-answer');
-const feedbackEl = document.getElementById('feedback');
-const quizNumberEl = document.getElementById('quiz-number');
-const progressBar = document.getElementById('progress-bar');
-const finalScoreEl = document.getElementById('final-score');
-const resultsFeedbackEl = document.getElementById('results-feedback');
-
-// Start quiz
-function startQuiz() {
-    homePage.classList.remove('active');
-    quizPage.classList.add('active');
-    loadQuiz();
-}
-
-// Load current quiz
-function loadQuiz() {
-    const quiz = quizzes[currentQuiz];
-    quizNumberEl.textContent = currentQuiz + 1;
-    questionEl.textContent = quiz.question;
-    optionsEl.innerHTML = '';
-    feedbackEl.textContent = '';
-    submitButton.disabled = true;
-    selectedAnswer = null;
-
-    // Shuffle options
-    const shuffledOptions = quiz.options.sort(() => Math.random() - 0.5);
-    shuffledOptions.forEach(option => {
-        const div = document.createElement('div');
-        div.classList.add('option');
-        div.textContent = option;
-        div.onclick = () => selectOption(option, div);
-        optionsEl.appendChild(div);
-    });
-
-    // Update progress bar
-    progressBar.style.width = `${((currentQuiz + 1) / 24) * 100}%`;
-}
-
-// Select an option
-function selectOption(option, element) {
-    selectedAnswer = option;
-    submitButton.disabled = false;
-    // Highlight selected option
-    const options = document.querySelectorAll('.option');
-    options.forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
-}
-
-// Submit answer
-function submitAnswer() {
-    const quiz = quizzes[currentQuiz];
-    if (selectedAnswer === quiz.answer) {
-        score++;
-        feedbackEl.textContent = `Correct! ${quiz.explanation}`;
-        feedbackEl.style.color = 'green';
-    } else {
-        feedbackEl.textContent = `Wrong! The correct answer is "${quiz.answer}". ${quiz.explanation}`;
-        feedbackEl.style.color = 'red';
-    }
-    submitButton.disabled = true;
-    // Disable options
-    const options = document.querySelectorAll('.option');
-    options.forEach(opt => opt.onclick = null);
-    // Next quiz after delay
-    setTimeout(() => {
-        currentQuiz++;
-        if (currentQuiz < quizzes.length) {
-            loadQuiz();
-        } else {
-            showResults();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Quiz & Algo Simulator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
-    }, 2000);
-}
-
-// Show results
-function showResults() {
-    quizPage.classList.remove('active');
-    resultsPage.classList.add('active');
-    finalScoreEl.textContent = score;
-    let feedback;
-    if (score >= 20) {
-        feedback = "Excellent! You're ready to trade like a pro!";
-    } else if (score >= 15) {
-        feedback = "Great job! Keep studying to master these strategies.";
-    } else if (score >= 10) {
-        feedback = "Good effort! Review the explanations to improve.";
-    } else {
-        feedback = "Don't give up! Try again to learn these trading secrets.";
-    }
-    resultsFeedbackEl.textContent = feedback;
-}
-
-// Restart quiz
-function restartQuiz() {
-    currentQuiz = 0;
-    score = 0;
-    resultsPage.classList.remove('active');
-    homePage.classList.add('active');
-}
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .option {
+            background: #f9f9f9;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .option:hover {
+            background: #e0e0e0;
+        }
+        .option.selected {
+            background: #4CAF50;
+            color: white;
+        }
+        #feedback, #sim-results {
+            margin: 10px 0;
+            font-style: italic;
+        }
+        .progress {
+            margin-top: 20px;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 10px;
+            background: #4CAF50;
+            border-radius: 5px;
+            transition: width 0.3s;
+        }
+        .input-group {
+            margin: 20px 0;
+        }
+        .input-group label {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        #price-chart {
+            max-height: 300px;
+            margin: 20px auto;
+        }
+        #learn-more ul {
+            list-style: none;
+            padding: 0;
+        }
+        #learn-more li {
+            margin: 5px 0;
+        }
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 1.5em;
+            }
+            .input-group label {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Home Page -->
+        <div id="home-page" class="page active">
+            <h1>Trader Quiz & Algo Simulator</h1>
+            <p>Learn trading strategies from Jim Simons, John Paulson, David Tepper, and Steven Cohen through 24 quizzes. Try a quantitative trading algorithm inspired by Simons!</p>
+            <button onclick="startQuiz()">Start Quiz</button>
+            <button onclick="showCodeSimulator()">Try Algo Simulator</button>
+        </div>
+        <!-- Quiz Page -->
+        <div id="quiz-page" class="page">
+            <h2>Quiz <span id="quiz-number">1</span> of 24</h2>
+            <p id="question"></p>
+            <div id="options"></div>
+            <button id="submit-answer" onclick="submitAnswer()" disabled>Submit</button>
+            <p id="feedback"></p>
+            <div class="progress">
+                <span>Progress: </span>
+                <div id="progress-bar" class="progress-bar"></div>
+            </div>
+        </div>
+        <!-- Code Simulator Page -->
+        <div id="code-page" class="page">
+            <h2>Quantitative Trading Simulator</h2>
+            <p>Inspired by Jim Simons, test a moving average crossover strategy. Set periods and run the simulation!</p>
+            <div class="input-group">
+                <label>Short MA Period: <input type="number" id="short-ma" value="10" min="1"></label>
+                <label>Long MA Period: <input type="number" id="long-ma" value="50" min="1"></label>
+            </div>
+            <button onclick="runSimulation()">Run Simulation</button>
+            <canvas id="price-chart"></canvas>
+            <p id="sim-results"></p>
+            <button onclick="backToHome()">Back to Home</button>
+        </div>
+        <!-- Results Page -->
+        <div id="results-page" class="page">
+            <h2>Your Results</h2>
+            <p>You scored <span id="final-score"></span> out of 24!</p>
+            <p id="results-feedback"></p>
+            <button onclick="restartQuiz()">Play Again</button>
+            <button onclick="showCodeSimulator()">Try Algo Simulator</button>
+            <div id="learn-more">
+                <h3>Learn More</h3>
+                <ul>
+                    <li><a href="https://www.investopedia.com" target="_blank">Investopedia: Trading Basics</a></li>
+                    <li><a href="https://www.tradingwalk.com" target="_blank">Trading Walk: Top Traders</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Quiz data
+        const quizzes = [
+            // Jim Simons
+            { question: "What is Jim Simons’ trading approach?", options: ["Manual trading", "Quantitative trading", "Swing trading", "Value investing"], answer: "Quantitative trading", explanation: "Simons uses algorithms to find market patterns, like in the Medallion Fund." },
+            { question: "How does Simons manage risk?", options: ["High leverage", "Small positions", "No stop-loss", "Emotional trading"], answer: "Small positions", explanation: "Simons diversifies with many small trades to limit losses." },
+            { question: "What analysis does Simons rely on?", options: ["Fundamental", "Technical", "Quantitative", "Macro"], answer: "Quantitative", explanation: "Simons uses mathematical models and data analysis." },
+            { question: "What was Simons’ notable achievement?", options: ["66% annual returns", "Subprime short", "Forex trade", "Bank stocks"], answer: "66% annual returns", explanation: "Simons’ Medallion Fund averaged 66% returns before fees." },
+            { question: "What pitfall should you avoid with Simons’ strategy?", options: ["Over-reliance on data", "Manual trading", "High leverage", "Long-term holding"], answer: "Over-reliance on data", explanation: "Algorithms can fail in unpredictable markets." },
+            { question: "What’s a practical tip from Simons?", options: ["Trade emotionally", "Test strategies with data", "Use high leverage", "Follow news"], answer: "Test strategies with data", explanation: "Like Simons, backtest your trading ideas before risking money." },
+            // John Paulson
+            { question: "What is John Paulson's primary trading strategy?", options: ["Day trading", "Contrarian betting", "Scalping", "Buy and hold"], answer: "Contrarian betting", explanation: "Paulson bets against market trends, like shorting subprime mortgages in 2008." },
+            { question: "How does Paulson manage risk?", options: ["High leverage", "Diversifying strategies", "All-in bets", "Ignoring losses"], answer: "Diversifying strategies", explanation: "Paulson combines arbitrage and speculative bets to limit exposure." },
+            { question: "What analysis does Paulson rely on?", options: ["Technical", "Quantitative", "Macroeconomic", "Sentiment"], answer: "Macroeconomic", explanation: "Paulson studies global economic trends to spot assets." },
+            { question: "What was Paulson’s most famous trade?", options: ["Gold in 2010", "Subprime short in 2008", "Tech stocks in 2015", "Oil in 2020"], answer: "Subprime short in 2008", explanation: "Paulson earned $4 billion using credit default swaps." },
+            { question: "What pitfall should you avoid with Paulson’s strategy?", options: ["Over-leveraging", "Diversifying too much", "Following trends", "Using stop-loss"], answer: "Over-leveraging", explanation: "Contrarian bets can fail if leveraged too heavily." },
+            { question: "What’s a practical tip from Paulson?", options: ["Trade daily", "Study economic trends", "Follow news blindly", "Use high leverage"], answer: "Study economic trends", explanation: "Analyze macro conditions like Paulson to make informed trades." },
+            // David Tepper
+            { question: "What is David Tepper’s key trading focus?", options: ["Tech stocks", "Distressed debt", "Forex", "Crypto"], answer: "Distressed debt", explanation: "Tepper buys bonds or stocks of troubled companies, expecting recovery." },
+            { question: "How does Tepper approach risk?", options: ["Avoids leverage", "Uses high leverage", "Trades conservatively", "No stop-loss"], answer: "Uses high leverage", explanation: "Tepper uses borrowed money to amplify gains, increasing risk." },
+            { question: "What analysis does Tepper rely on?", options: ["Technical", "Fundamental", "Quantitative", "Sentiment"], answer: "Fundamental", explanation: "Tepper assesses company financials and economic conditions." },
+            { question: "What was Tepper’s notable trade?", options: ["Banks post-2008", "Gold in 2010", "Tech in 2020", "Oil in 2015"], answer: "Banks post-2008", explanation: "Tepper profited billions buying bank stocks in 2009." },
+            { question: "What pitfall should you avoid with Tepper’s strategy?", options: ["Buying too early", "Ignoring fundamentals", "Low leverage", "Diversifying"], answer: "Buying too early", explanation: "Distressed assets may take time to recover." },
+            { question: "What’s a practical tip from Tepper?", options: ["Trade fast", "Buy during pessimism", "Follow trends", "Avoid stocks"], answer: "Buy during pessimism", explanation: "Tepper buys undervalued assets when markets are fearful." },
+            // Steven Cohen
+            { question: "What is Steven Cohen’s trading style?", options: ["Long-term investing", "High-risk, high-reward", "Passive indexing", "Arbitrage"], answer: "High-risk, high-reward", explanation: "Cohen executes aggressive trades for big gains." },
+            { question: "How does Cohen manage risk?", options: ["Solo trading", "Team analysis", "No stop-loss", "Low leverage"], answer: "Team analysis", explanation: "Cohen relies on a team to reduce bias." },
+            { question: "What analysis does Cohen use?", options: ["Fundamental", "Technical", "Macro", "Quantitative"], answer: "Technical", explanation: "Cohen uses price patterns for quick trades." },
+            { question: "What was Cohen’s notable achievement?", options: ["25% annual returns", "Subprime short", "Gold trade", "Forex bet"], answer: "25% annual returns", explanation: "Cohen’s SAC Capital delivered 25% returns for years." },
+            { question: "What pitfall should you avoid with Cohen’s strategy?", options: ["Slow trading", "Over-trading", "Long-term holding", "Diversifying"], answer: "Over-trading", explanation: "Frequent trading can lead to high costs." },
+            { question: "What’s a practical tip from Cohen?", options: ["Trade alone", "Use technical indicators", "Avoid stocks", "Hold forever"], answer: "Use technical indicators", explanation: "Like Cohen, use charts to time entries and exits." }
+        ];
+        // State variables
+        let currentQuiz = 0;
+        let score = 0;
+        let selectedAnswer = null;
+        let chartInstance = null;
+        // DOM elements
+        const homePage = document.getElementById('home-page');
+        const quizPage = document.getElementById('quiz-page');
+        const codePage = document.getElementById('code-page');
+        const resultsPage = document.getElementById('results-page');
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const submitButton = document.getElementById('submit-answer');
+        const feedbackEl = document.getElementById('feedback');
+        const quizNumberEl = document.getElementById('quiz-number');
+        const progressBar = document.getElementById('progress-bar');
+        const finalScoreEl = document.getElementById('final-score');
+        const resultsFeedbackEl = document.getElementById('results-feedback');
+        const simResultsEl = document.getElementById('sim-results');
+        const priceChart = document.getElementById('price-chart').getContext('2d');
+        // Sample stock price data (100 days)
+        const stockPrices = Array.from({length: 100}, (_, i) => 100 + Math.sin(i / 5) * 20 + Math.random() * 10);
+        // Trading algorithm: Moving Average Crossover
+        function runMovingAverageStrategy(prices, shortPeriod, longPeriod) {
+            const shortMA = [];
+            const longMA = [];
+            const signals = [];
+            let position = null;
+            let profit = 0;
+            let trades = [];
+            for (let i = 0; i < prices.length; i++) {
+                if (i >= shortPeriod - 1) {
+                    const shortSum = prices.slice(i - shortPeriod + 1, i + 1).reduce((a, b) => a + b, 0);
+                    shortMA.push(shortSum / shortPeriod);
+                } else {
+                    shortMA.push(null);
+                }
+                if (i >= longPeriod - 1) {
+                    const longSum = prices.slice(i - longPeriod + 1, i + 1).reduce((a, b) => a + b, 0);
+                    longMA.push(longSum / longPeriod);
+                } else {
+                    longMA.push(null);
+                }
+            }
+            for (let i = 1; i < prices.length; i++) {
+                if (shortMA[i] && longMA[i] && shortMA[i - 1] && longMA[i - 1]) {
+                    if (shortMA[i] > longMA[i] && shortMA[i - 1] <= longMA[i - 1] && !position) {
+                        position = prices[i];
+                        signals.push({ index: i, type: 'buy', price: prices[i] });
+                    } else if (shortMA[i] < longMA[i] && shortMA[i - 1] >= longMA[i - 1] && position) {
+                        profit += prices[i] - position;
+                        trades.push({ buy: position, sell: prices[i], profit: prices[i] - position });
+                        position = null;
+                        signals.push({ index: i, type: 'sell', price: prices[i] });
+                    }
+                }
+            }
+            return { shortMA, longMA, signals, profit, trades };
+        }
+        // Run simulation
+        function runSimulation() {
+            const shortPeriod = parseInt(document.getElementById('short-ma').value);
+            const longPeriod = parseInt(document.getElementById('long-ma').value);
+            if (shortPeriod >= longPeriod) {
+                simResultsEl.textContent = 'Error: Short MA period must be less than Long MA period.';
+                return;
+            }
+            const { shortMA, longMA, signals, profit } = runMovingAverageStrategy(stockPrices, shortPeriod, longPeriod);
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(priceChart, {
+                type: 'line',
+                data: {
+                    labels: Array.from({length: stockPrices.length}, (_, i) => i + 1),
+                    datasets: [
+                        { label: 'Stock Price', data: stockPrices, borderColor: 'blue', fill: false },
+                        { label: `Short MA (${shortPeriod})`, data: shortMA, borderColor: 'green', fill: false },
+                        { label: `Long MA (${longPeriod})`, data: longMA, borderColor: 'red', fill: false }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { beginAtZero: false } },
+                    plugins: {
+                        annotation: {
+                            annotations: signals.map(s => ({
+                                type: 'point',
+                                xValue: s.index + 1,
+                                yValue: s.price,
+                                backgroundColor: s.type === 'buy' ? 'green' : 'red',
+                                radius: 5,
+                                label: { content: s.type.toUpperCase(), enabled: true }
+                            }))
+                        }
+                    }
+                }
+            });
+            simResultsEl.textContent = `Profit: $${profit.toFixed(2)} over ${signals.length} trades.`;
+        }
+        // Start quiz
+        function startQuiz() {
+            homePage.classList.remove('active');
+            quizPage.classList.add('active');
+            loadQuiz();
+        }
+        // Show code simulator
+        function showCodeSimulator() {
+            homePage.classList.remove('active');
+            resultsPage.classList.remove('active');
+            codePage.classList.add('active');
+            simResultsEl.textContent = '';
+            if (chartInstance) chartInstance.destroy();
+        }
+        // Back to home
+        function backToHome() {
+            codePage.classList.remove('active');
+            homePage.classList.add('active');
+        }
+        // Load current quiz
+        function loadQuiz() {
+            const quiz = quizzes[currentQuiz];
+            quizNumberEl.textContent = currentQuiz + 1;
+            questionEl.textContent = quiz.question;
+            optionsEl.innerHTML = '';
+            feedbackEl.textContent = '';
+            submitButton.disabled = true;
+            selectedAnswer = null;
+            const shuffledOptions = quiz.options.sort(() => Math.random() - 0.5);
+            shuffledOptions.forEach(option => {
+                const div = document.createElement('div');
+                div.classList.add('option');
+                div.textContent = option;
+                div.onclick = () => selectOption(option, div);
+                optionsEl.appendChild(div);
+            });
+            progressBar.style.width = `${((currentQuiz + 1) / 24) * 100}%`;
+        }
+        // Select option
+        function selectOption(option, element) {
+            selectedAnswer = option;
+            submitButton.disabled = false;
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+        // Submit answer
+        function submitAnswer() {
+            const quiz = quizzes[currentQuiz];
+            if (selectedAnswer === quiz.answer) {
+                score++;
+                feedbackEl.textContent = `Correct! ${quiz.explanation}`;
+                feedbackEl.style.color = 'green';
+            } else {
+                feedbackEl.textContent = `Wrong! The correct answer is "${quiz.answer}". ${quiz.explanation}`;
+                feedbackEl.style.color = 'red';
+            }
+            submitButton.disabled = true;
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.onclick = null);
+            setTimeout(() => {
+                currentQuiz++;
+                if (currentQuiz < quizzes.length) {
+                    loadQuiz();
+                } else {
+                    showResults();
+                }
+            }, 2000);
+        }
+        // Show results
+        function showResults() {
+            quizPage.classList.remove('active');
+            resultsPage.classList.add('active');
+            finalScoreEl.textContent = score;
+            let feedback;
+            if (score >= 20) feedback = "Excellent! Try the algo simulator to trade like Simons!";
+            else if (score >= 15) feedback = "Great job! Explore the algo simulator next.";
+            else if (score >= 10) feedback = "Good effort! Review and try the simulator.";
+            else feedback = "Keep learning! The algo simulator can help.";
+            resultsFeedbackEl.textContent = feedback;
+        }
+        // Restart quiz
+        function restartQuiz() {
+            currentQuiz = 0;
+            score = 0;
+            resultsPage.classList.remove('active');
+            homePage.classList.add('active');
+        }
+    </script>
+</body>
+</html>
